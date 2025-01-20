@@ -1,0 +1,12 @@
+public void saveBook(Book book) {
+    String sql = "INSERT INTO Books (title, authors) VALUES (?, ?)";
+
+    try (Connection conn = connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, book.getTitle());
+        pstmt.setString(2, book.getAuthors());
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
