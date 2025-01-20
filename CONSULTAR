@@ -1,0 +1,16 @@
+public List<Book> getBooks() {
+    List<Book> books = new ArrayList<>();
+    String sql = "SELECT * FROM Books";
+
+    try (Connection conn = connect();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            books.add(new Book(rs.getString("title"), rs.getString("authors")));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return books;
+}
